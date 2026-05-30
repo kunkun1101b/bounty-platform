@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赏金猎人 - 多人悬赏平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="container nav-inner">
+            <div class="logo">
+                <i class="fas fa-skull-crossbones"></i> BOUNTY<span style="color:#f97316;">HUNTER</span>
+            </div>
+            <div class="stats-row" id="statsRow">
+                <div class="stat-item"><span class="stat-value" id="totalBounties">0</span><span class="stat-label">总悬赏</span></div>
+                <div class="stat-item"><span class="stat-value" id="openBounties">0</span><span class="stat-label">开放中</span></div>
+                <div class="stat-item"><span class="stat-value" id="totalReward">0</span><span class="stat-label">总奖池</span></div>
+            </div>
+            <div class="nav-buttons">
+                <span id="userDisplay" class="user-badge"><i class="fas fa-user"></i> 未登录</span>
+                <button id="adminPanelBtn" class="btn-outline-nav" style="display:none;"><i class="fas fa-user-shield"></i> 管理</button>
+                <button id="openCreateModalBtn" class="btn-create"><i class="fas fa-plus-circle"></i> 发布悬赏</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container dashboard">
+        <div class="tasks-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-tasks"></i> 赏金任务榜</h2>
+                    <select id="filterStatus">
+                        <option value="all">全部状态</option>
+                        <option value="open">开放中</option>
+                        <option value="in_progress">进行中</option>
+                        <option value="pending_verify">待审核</option>
+                        <option value="completed">已完成</option>
+                    </select>
+                </div>
+                <div id="tasksListContainer">加载中...</div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="card">
+                <div class="card-header"><h2><i class="fas fa-user-check"></i> 我的工单</h2></div>
+                <div id="myTasksList">暂无接单</div>
+            </div>
+            <div class="card">
+                <div class="card-header"><h2><i class="fas fa-coins"></i> 赏金钱包</h2></div>
+                <div class="wallet-balance"><span id="userBalance">0</span> BOUNTY</div>
+                <div class="wallet-hint">
+                    <i class="fas fa-info-circle"></i> 新用户初始500 BOUNTY<br>
+                    发布任务扣除赏金，审核通过后赏金给接单者
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录模态框 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-sign-in-alt"></i> 登录/注册</h3>
+            <input type="text" id="loginUsername" placeholder="输入用户名开始" style="width:100%; margin:15px 0;">
+            <button id="loginBtn" class="btn-primary" style="width:100%;">开始使用</button>
+        </div>
+    </div>
+
+    <!-- 发布任务模态框 -->
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between;">
+                <h3>发布悬赏</h3>
+                <button id="closeModalBtn" style="font-size:24px;">&times;</button>
+            </div>
+            <form id="createTaskForm">
+                <input type="text" id="taskTitle" placeholder="任务标题" required>
+                <textarea id="taskDesc" rows="3" placeholder="详细描述" required></textarea>
+                <input type="number" id="taskBounty" placeholder="赏金金额" min="5" value="50" required>
+                <button type="submit" class="submit-btn">发布并扣减余额</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 提交完成模态框 -->
+    <div id="submitModal" class="modal">
+        <div class="modal-content">
+            <h3>提交完成凭证</h3>
+            <div id="submitDropZone" class="upload-area">📸 点击上传完成截图</div>
+            <input type="file" id="submitFileInput" multiple accept="image/*" style="display:none;">
+            <div id="submitPreviewList" class="image-preview-list"></div>
+            <button id="confirmSubmitBtn" class="btn-primary">确认提交</button>
+            <button id="closeSubmitModal" class="btn-outline">取消</button>
+        </div>
+    </div>
+
+    <!-- 管理员面板 -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content" style="max-width:700px;">
+            <div style="display:flex; justify-content:space-between;">
+                <h3>管理员审核面板</h3>
+                <button id="closeAdminBtn">&times;</button>
+            </div>
+            <div id="adminPendingList">加载中...</div>
+        </div>
+    </div>
+
+    <footer>© 2024 赏金猎人平台 | 多人协作 · 安全可信</footer>
+    <script src="/script.js"></script>
+</body>
+</html>

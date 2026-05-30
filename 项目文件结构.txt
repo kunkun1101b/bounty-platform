@@ -1,0 +1,9 @@
+bounty-platform/
+├── package.json
+├── server.js
+├── database.js
+├── .gitignore
+└── public/
+    ├── index.html
+    ├── style.css
+    └── script.js
